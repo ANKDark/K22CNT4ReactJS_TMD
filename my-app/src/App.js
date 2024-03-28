@@ -1,5 +1,6 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import TmD from "./components/TmD";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           Learn React
         </a>
       </header>
+      <TmD email="Dinhhoangducdbp2004@gmail.com" contact="0855312279" />
     </div>
   );
 }
