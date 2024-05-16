@@ -20,7 +20,7 @@ class TmdProductAdd extends Component {
     tmdHandleSubmit = (ev) => {
         ev.preventDefault();
 
-        this.props.onSubmit(this.state)
+        this.props.onSubmit(this.state);
     }
   render() {
     return (

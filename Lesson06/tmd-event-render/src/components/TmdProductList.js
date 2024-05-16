@@ -3,8 +3,8 @@ import React, { Component } from "react";
 class TmdProductList extends Component {
   render() {
     let { RenderProducts } = this.props;
-    let fnStatus = (duc) => {
-        if(duc === 1) {
+    let fnStatus = (param) => {
+        if(param === 1) {
             return "Active";
         }else {
             return "NonActive";
