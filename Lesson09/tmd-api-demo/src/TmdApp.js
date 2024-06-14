@@ -22,7 +22,6 @@ function TmdApp() {
   }, []);
 
   const handleEdit = (studentId) => {
-    // Set editStudentId to the id of the student being edited
     setEditStudentId(studentId);
   };
 
@@ -31,7 +30,11 @@ function TmdApp() {
       <h1 className='text-center my-3'>Xử lý chức năng API</h1>
       <hr/>
       <TmdStudentList renderTmdStudentList={tmdStudentList} tmdHandleEdit={handleEdit} />
-      <TmdCreate setTmdStudentList={setTmdStudentList} tmdStudentList={tmdStudentList} />
+      <TmdCreate 
+        setTmdStudentList={setTmdStudentList} 
+        tmdStudentList={tmdStudentList} 
+        editStudentId={editStudentId} 
+      />
       {editStudentId && <p>Đã chọn sửa sinh viên có id: {editStudentId}</p>}
     </div>
   );

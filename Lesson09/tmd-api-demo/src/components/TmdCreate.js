@@ -1,14 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-export default function TmdCreate() {
+export default function TmdCreate({ editStudentId, setTmdStudentList, tmdStudentList }) {
   const [tmdId, settmdId] = useState('');
   const [tmdName, settmdName] = useState('');
   const [tmdPhone, settmdPhone] = useState('');
   const [tmdEmail, settmdEmail] = useState('');
   const [tmdCreatedAt, settmdCreatedAt] = useState('');
   const [tmdStatus, settmdStatus] = useState('');
-  const [tmdStudentList, setTmdStudentList] = useState([]);
+
+  useEffect(() => {
+    if (editStudentId) {
+      const studentToEdit = tmdStudentList.find(tmdStudent => tmdStudent.id === editStudentId);
+      if (studentToEdit) {
+        settmdId(studentToEdit.tmdId);
+        settmdName(studentToEdit.tmdName);
+        settmdPhone(studentToEdit.tmdPhone);
+        settmdEmail(studentToEdit.tmdEmail);
+        settmdCreatedAt(studentToEdit.tmdCreatedAt);
+        settmdStatus(studentToEdit.tmdStatus);
+      }
+    } else {
+      // Clear the form if no student is being edited
+      settmdId('');
+      settmdName('');
+      settmdPhone('');
+      settmdEmail('');
+      settmdCreatedAt('');
+      settmdStatus('');
+    }
+  }, [editStudentId, tmdStudentList]);
 
   // Handle form submission
   const tmdHandleSubmit = async (event) => {
@@ -22,8 +43,13 @@ export default function TmdCreate() {
         tmdCreatedAt,
         tmdStatus
       };
-      const response = await axios.post("https://666a98af7013419182cff882.mockapi.io/api/tmdv1/tmdStudent", newStudent);
-      setTmdStudentList([...tmdStudentList, response.data]);
+      if (editStudentId) {
+        await axios.put(`https://666a98af7013419182cff882.mockapi.io/api/tmdv1/tmdStudent/${editStudentId}`, newStudent);
+        setTmdStudentList(tmdStudentList.map(tmdStudent => (tmdStudent.id === editStudentId ? newStudent : tmdStudent)));
+      } else {
+        const response = await axios.post("https://666a98af7013419182cff882.mockapi.io/api/tmdv1/tmdStudent", newStudent);
+        setTmdStudentList([...tmdStudentList, response.data]);
+      }
       window.location.reload();
     } catch (error) {
       console.error("Error adding student:", error);
@@ -32,7 +58,7 @@ export default function TmdCreate() {
 
   return (
     <div className='col-md-6'>
-      <h2>Thêm mới sinh viên</h2>
+      <h2>{editStudentId ? 'Sửa thông tin sinh viên' : 'Thêm mới sinh viên'}</h2>
       <hr />
       <form onSubmit={tmdHandleSubmit}>
         <div className="input-group mb-3">
@@ -109,7 +135,7 @@ export default function TmdCreate() {
             <option value="inactive">Không hoạt động</option>
           </select>
         </div>
-        <button type='submit' className='btn btn-primary'>Thêm mới</button>
+        <button type='submit' className='btn btn-primary'>{editStudentId ? 'Cập nhật' : 'Thêm mới'}</button>
       </form>
     </div>
   );
