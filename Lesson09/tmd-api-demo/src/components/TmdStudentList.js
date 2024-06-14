@@ -1,5 +1,6 @@
 import React from "react";
-export default function TmdStudentList({ renderTmdStudentList, tmdHandleEdit }) {
+
+export default function TmdStudentList({ renderTmdStudentList, tmdHandleEdit, tmdHandleDelete }) {
   let tmdElement = renderTmdStudentList.map((tmdStudent, index) => {
     return (
       <tr key={index}>
@@ -11,16 +12,25 @@ export default function TmdStudentList({ renderTmdStudentList, tmdHandleEdit }) 
         <td>{tmdStudent.tmdCreatedAt}</td>
         <td>{tmdStudent.tmdStatus ? "Hoạt động" : "Không hoạt động"}</td>
         <td>
-          <button type="button" class="btn btn-info" onClick={() => tmdHandleEdit(tmdStudent.tmdId)}>
-            <i class="fa-solid fa-pen-to-square"></i>
+          <button
+            type="button"
+            className="btn btn-info"
+            onClick={() => tmdHandleEdit(tmdStudent.tmdId)}
+          >
+            <i className="fa-solid fa-pen-to-square"></i>
           </button>
-          <button type="button" class="btn btn-danger">
-            <i class="fa-solid fa-trash"></i>
+          <button
+            type="button"
+            className="btn btn-danger"
+            onClick={() => tmdHandleDelete(tmdStudent.tmdId)}
+          >
+            <i className="fa-solid fa-trash"></i>
           </button>
         </td>
       </tr>
     );
   });
+
   return (
     <div>
       <h2>Danh sách sinh viên</h2>
@@ -30,9 +40,9 @@ export default function TmdStudentList({ renderTmdStudentList, tmdHandleEdit }) 
             <th scope="col">#</th>
             <th scope="col">Mã sinh viên</th>
             <th scope="col">Họ tên</th>
-            <th scope="col">Tuổi</th>
             <th scope="col">Điện thoại</th>
             <th scope="col">Email</th>
+            <th scope="col">Ngày tạo</th>
             <th scope="col">Trạng thái</th>
             <th scope="col">Chức năng</th>
           </tr>

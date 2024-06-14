@@ -11,7 +11,7 @@ export default function TmdCreate({ editStudentId, setTmdStudentList, tmdStudent
 
   useEffect(() => {
     if (editStudentId) {
-      const studentToEdit = tmdStudentList.find(tmdStudent => tmdStudent.id === editStudentId);
+      const studentToEdit = tmdStudentList.find(student => student.tmdId === editStudentId);
       if (studentToEdit) {
         settmdId(studentToEdit.tmdId);
         settmdName(studentToEdit.tmdName);
@@ -21,7 +21,6 @@ export default function TmdCreate({ editStudentId, setTmdStudentList, tmdStudent
         settmdStatus(studentToEdit.tmdStatus);
       }
     } else {
-      // Clear the form if no student is being edited
       settmdId('');
       settmdName('');
       settmdPhone('');
