@@ -11,7 +11,9 @@ export default function TmdCategoryList({ renderTmdCategories, onAddNew }) {
         <td>
           {tmdCategory.tmdCategoryStatus === true ? "Hiển thị" : "Tạm khóa"}
         </td>
-        <td>Edit | Del</td>
+        <td>
+          Edit | Del
+        </td>
       </tr>
     );
   })
